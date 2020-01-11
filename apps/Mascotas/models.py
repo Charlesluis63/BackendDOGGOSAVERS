@@ -1,15 +1,28 @@
 from django.db import models
+from apps.datos_usuarios.models import Usuario
+
+
+class Raza (models.Model):
+    raza = models.CharField(max_length = 20)
+    def __str__(self):
+        return self.raza
 
 class Mascota (models.Model):
     PERRO = 'PE'
     GATO =  'GA'
     LORO =  'LO'
     TIPO_MASCOTA_ELECCION = [(PERRO,'perro'),(GATO,'gato'),(LORO,'loro')]
-    tipo_mascota = models.CharField(max_length = 2, choices = TIPO_MASCOTA_ELECCION, default = PERRO)
+    MACHO = 'M'
+    HEMBRA = 'H'
+    SEXO = [(MACHO,'macho'),(HEMBRA,'hembra')]
+
+    tipo_mascota = models.CharField(max_length = 2, choices = TIPO_MASCOTA_ELECCION)
     nombre= models.CharField(max_length = 30)
+    sexo = models.CharField(max_length = 2, choices = SEXO)
     altura = models.DecimalField(max_digits = 4, decimal_places= 2 )
     peso = models.DecimalField(max_digits = 4, decimal_places= 2 )
-    edad_aproximada = models.IntegerField()
+    #La edad aproximada, constaria de años y meses? Lo que llevaria a hacer una transformacion segun lo que agregue el usuario
+    edad_aproximada = models.DecimalField(max_digits = 4, decimal_places = 2)
     imagen = models.URLField(max_length = 100)
     detalles = models.CharField(max_length = 200)
     razas = models.ManyToManyField(Raza)
@@ -17,9 +30,26 @@ class Mascota (models.Model):
     def __str__(self):
         return self.nombre
 
-class Raza (models.Model):
-    raza = models.CharField(max_length = 20)
-    def __str__(self):
-        return self.raza
-        
+class Mascota_En_Adopcion(models.Model):
+    id_mascota = models.ForeignKey(Mascota)
+    id_user = models.ForeignKey(Usuario)
+    puntaje_juego = models.DecimalField(max_digits= 4, decimal_places=2)
+
+class  Mascota_Adoptada(models.Model):
+    id_mascota = models.ForeignKey(Mascota)
+    id_user = models.ForeignKey(Usuario)
+    fecha = models.DateField()
+    hora = models.TimeField(auto_now=False, auto_now_add=False)
+    detalle = models.CharField(max_length= 200)
+
+class Mascota_Perdida_Encontrada(models.Model):
+    NORMAL = 'NO'
+    HERIDO =  'HE'
+    TIPO_MASCOTA_ELECCION = [(NORMAL,'normal'),(HERIDO,'herido')]
+    id_mascota = models.ForeignKey(Mascota)
+    id_user = models.ForeignKey(Usuario)
+    estado_mascota = models.CharField(max_length = 2 , choices = TIPO_MASCOTA_ELECCION)
+    #DEBE DEFINIRSE COORDENADAS, O SOLO UNA DIRECCION
+    sector_encuentro_perdida = models.CharField(max_length= 50)
+    detalle = models.CharField(max_length= 300) 
     

@@ -6,7 +6,7 @@ class Usuario(models.Model):
     password = models.CharField(max_length = 20)
     estado = models.CharField(max_length = 15)
     tipo_usuario = modesl.CharField(max_length = 15)
-    persona = models.ForeignKey(Persona)
+    persona = models.OneToOneField(Persona)
 
 class Persona(models.Model):
     
