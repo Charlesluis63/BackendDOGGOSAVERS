@@ -31,13 +31,13 @@ class Mascota (models.Model):
         return self.nombre
 
 class Mascota_En_Adopcion(models.Model):
-    id_mascota = models.ForeignKey(Mascota)
-    id_user = models.ForeignKey(Usuario)
+    id_mascota = models.ForeignKey(Mascota, on_delete=models.CASCADE)
+    id_user = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     puntaje_juego = models.DecimalField(max_digits= 4, decimal_places=2)
 
 class  Mascota_Adoptada(models.Model):
-    id_mascota = models.ForeignKey(Mascota)
-    id_user = models.ForeignKey(Usuario)
+    id_mascota = models.ForeignKey(Mascota, on_delete=models.CASCADE)
+    id_user = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     fecha = models.DateField()
     hora = models.TimeField(auto_now=False, auto_now_add=False)
     detalle = models.CharField(max_length= 200)
@@ -46,8 +46,8 @@ class Mascota_Perdida_Encontrada(models.Model):
     NORMAL = 'NO'
     HERIDO =  'HE'
     TIPO_MASCOTA_ELECCION = [(NORMAL,'normal'),(HERIDO,'herido')]
-    id_mascota = models.ForeignKey(Mascota)
-    id_user = models.ForeignKey(Usuario)
+    id_mascota = models.ForeignKey(Mascota, on_delete=models.CASCADE)
+    id_user = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     estado_mascota = models.CharField(max_length = 2 , choices = TIPO_MASCOTA_ELECCION)
     #DEBE DEFINIRSE COORDENADAS, O SOLO UNA DIRECCION
     sector_encuentro_perdida = models.CharField(max_length= 50)
