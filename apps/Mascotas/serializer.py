@@ -6,7 +6,7 @@ class Mascotaserialize(ModelSerializer):
     class Meta:
         model =  Mascota
         #No veo necesario agregar contraseña
-        fields = ('id','username','estado','tipo_usuario')
+        fields = ('id','tipo_mascota','nombre','sexo','altura','peso','imagen','detalles','edad_aproximada')
 
 class Mascota_adopcion_serialize (ModelSerializer):
     class Meta:
