@@ -43,8 +43,8 @@ class  Mascota_Adoptada(models.Model):
     detalle = models.CharField(max_length= 200)
 
 class Mascota_Perdida_Encontrada(models.Model):
-    NORMAL = 'NO'
-    HERIDO =  'HE'
+    PERDIDO = 'PE'
+    ENCONTRADO =  'EN'
     TIPO_MASCOTA_ELECCION = [(NORMAL,'normal'),(HERIDO,'herido')]
     id_mascota = models.ForeignKey(Mascota, on_delete=models.CASCADE)
     id_user = models.ForeignKey(Usuario, on_delete=models.CASCADE)
