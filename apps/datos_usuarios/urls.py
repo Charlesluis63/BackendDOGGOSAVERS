@@ -7,7 +7,6 @@ urlpatterns = [
     url("usuariosAPI/", UsuarioAPI.as_view()),
     path('persona/', views.Persona_List.as_view()),
     path('persona/<int:pk>/', views.Persona_Detail.as_view()),
-
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
