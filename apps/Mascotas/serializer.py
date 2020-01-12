@@ -27,3 +27,9 @@ class Mascota_Perdida_Encontrada_serialize(serializers.HyperlinkedModelSerialize
         model =  Mascota_Perdida_Encontrada
         #No veo necesario agregar contraseña
         fields = ('id_mascota','id_user', 'estado_mascota','sector_encuentro_perdida','detalle')
+
+class Mascota_Adoptada_serialize(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model =  Mascota_Adoptada
+        #No veo necesario agregar contraseña
+        fields = ('id_mascota','id_user', 'fecha','hora','detalle')
