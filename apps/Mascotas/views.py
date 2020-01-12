@@ -16,6 +16,7 @@ def api_root(request, format=None):
         'mascotas': reverse('mascotas-list', request=request, format=format),
         'razas': reverse('razas-list', request=request, format=format),
         'mascotas_adopcion': reverse('mascotasadopcion-list', request=request, format=format),
+        'mascotas_perdidas_encontradas': reverse('mascota_perdida_encontrada-list', request=request, format=format),
     })
 
 
@@ -36,7 +37,7 @@ class MascotaAdopcion_Detail(generics.RetrieveUpdateDestroyAPIView):
     queryset =Mascota_En_Adopcion.objects.all()
     serializer_class = Mascota_adopcion_serialize
 
-class MascotaAPI(generics.ListCreateAPIView):
+class Mascotas(generics.ListCreateAPIView):
     queryset = Mascota.objects.all().order_by('nombre')
     serializer_class = Mascotaserialize
 
@@ -51,3 +52,11 @@ class Razas(generics.ListCreateAPIView):
 class RazaDetail(generics.RetrieveAPIView):
     queryset = Raza.objects.all()
     serializer_class = Razaserialize
+
+class Mascotas_Perdida_Encontrada(generics.ListCreateAPIView):
+    queryset = Mascota_Perdida_Encontrada.objects.all()
+    serializer_class = Mascota_Perdida_Encontrada_serialize
+
+class Mascotas_Perdida_Encontrada_Detail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Mascota_Perdida_Encontrada.objects.all()
+    serializer_class = Mascota_Perdida_Encontrada_serialize
