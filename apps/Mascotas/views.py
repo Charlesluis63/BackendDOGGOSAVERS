@@ -12,3 +12,4 @@ class MascotaAPI(APIView):
         lista = Mascota.objects.all()
         response = self.serializer(lista, many = True)
         return HttpResponse(json.dumps(response.data), content_type ='application/json')
+

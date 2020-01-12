@@ -5,4 +5,6 @@ from .models import Mascota
 class Mascotaserialize(ModelSerializer):
     class Meta:
         model =  Mascota
-        fields = ('nombre','tipo_mascota','sexo','razas')
+        #No veo necesario agregar contraseña
+        fields = ('id','username','estado','tipo_usuario')
+

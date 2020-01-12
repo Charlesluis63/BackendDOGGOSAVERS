@@ -10,6 +10,8 @@ class Persona(models.Model):
     correo = models.CharField(max_length = 25)
     numero_contacto = models.CharField(max_length = 20)
     domicilio = models.CharField(max_length = 40)
+    def __str__(self):
+        return self.nombre +" " + self.apellidos
 
 class Usuario(models.Model):
     username = models.CharField(max_length = 20)
@@ -17,4 +19,5 @@ class Usuario(models.Model):
     estado = models.CharField(max_length = 15)
     tipo_usuario = models.CharField(max_length = 15)
     persona = models.OneToOneField(Persona, on_delete= models.CASCADE)
-
+    def __str__(self):
+        return self.username
