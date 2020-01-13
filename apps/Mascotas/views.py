@@ -27,6 +27,18 @@ class MascotaAdopcion_List(generics.ListCreateAPIView):
     queryset = Mascota_En_Adopcion.objects.all()
     serializer_class = Mascota_adopcion_serialize
 
+    def get_queryset(self):
+        """
+        Optionally restricts the returned purchases to a given user,
+        by filtering against a `username` query parameter in the URL.
+        """
+        queryset = Mascota_En_Adopcion.objects.all()
+        pj = self.request.query_params.get('puntaje_juego', None)
+        if pj is not None:
+            queryset = queryset.filter(puntaje_juego=pj)
+
+        return queryset
+
 
 class MascotaAdopcion_Detail(generics.RetrieveUpdateDestroyAPIView):
     queryset =Mascota_En_Adopcion.objects.all()
@@ -35,6 +47,26 @@ class MascotaAdopcion_Detail(generics.RetrieveUpdateDestroyAPIView):
 class Mascotas(generics.ListCreateAPIView):
     queryset = Mascota.objects.all().order_by('nombre')
     serializer_class = Mascotaserialize
+
+    def get_queryset(self):
+        """
+        Optionally restricts the returned purchases to a given user,
+        by filtering against a `username` query parameter in the URL.
+        """
+        queryset = Mascota.objects.all()
+        tp = self.request.query_params.get('tipo_mascota', None)
+        raza = self.request.query_params.get('raza', None)
+        edad = self.request.query_params.get('edad', None)
+        if tp is not None:
+            queryset = queryset.filter(tipo_mascota=tp)
+
+        if edad is not None:
+            queryset = queryset.filter(edad_aproximada=edad)
+
+        if raza is not None:
+            queryset = queryset.filter(razas=raza)
+
+        return queryset
 
 class MascotaDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Mascota.objects.all()
