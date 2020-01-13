@@ -18,6 +18,6 @@ class Usuario(models.Model):
     password = models.CharField(max_length = 20)
     estado = models.CharField(max_length = 15)
     tipo_usuario = models.CharField(max_length = 15)
-    persona = models.OneToOneField(Persona, on_delete= models.CASCADE)
+    id_persona = models.OneToOneField(Persona, on_delete= models.CASCADE)
     def __str__(self):
         return self.username
