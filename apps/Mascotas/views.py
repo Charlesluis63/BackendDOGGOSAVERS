@@ -84,6 +84,19 @@ class Mascotas_Perdida_Encontrada(generics.ListCreateAPIView):
     queryset = Mascota_Perdida_Encontrada.objects.all()
     serializer_class = Mascota_Perdida_Encontrada_serialize
 
+    def get_queryset(self):
+        """
+        Optionally restricts the returned purchases to a given user,
+        by filtering against a `username` query parameter in the URL.
+        """
+        queryset = Mascota_Perdida_Encontrada.objects.all()
+        em  = self.request.query_params.get('estado_mascota', None)
+        if em is not None:
+            queryset = queryset.filter(estado_mascota=em)
+
+        return queryset
+
+
 class Mascotas_Perdida_Encontrada_Detail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Mascota_Perdida_Encontrada.objects.all()
     serializer_class = Mascota_Perdida_Encontrada_serialize
