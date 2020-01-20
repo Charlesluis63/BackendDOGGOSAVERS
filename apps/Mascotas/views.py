@@ -58,7 +58,7 @@ class Mascotas(generics.ListCreateAPIView):
         raza = self.request.query_params.get('raza', None)
         edad = self.request.query_params.get('edad', None)
         tipo = self.request.query_params.get('tipo', None)
-
+        estado = self.request.query_params.get('estado', None)
 
         if tipo is not None:
             temp3=[]
@@ -79,19 +79,21 @@ class Mascotas(generics.ListCreateAPIView):
                     for ob2 in temp2:
                         num = ob.id_mascota.id
                         print(ob.id_mascota.id)
-                        if (num == ob2.id):
+                        if (num == ob2.id and (estado==ob.estado_mascota)):
                             temp3.append(ob2.id)
                 queryset = temp2.filter(id__in=temp3)
 
         if tp is not None:
-            queryset = queryset.filter(tipo_mascota=tp)
+            if tp!="N":
+                queryset = queryset.filter(tipo_mascota=tp)
 
         if edad is not None:
-
-            queryset = queryset.filter(edad_aproximada=edad)
+            if tp != "N":
+             queryset = queryset.filter(edad_aproximada=edad)
 
         if raza is not None:
-            queryset = queryset.filter(razas=raza)
+            if tp != "N":
+              queryset = queryset.filter(razas=raza)
 
         return queryset
 
