@@ -4,7 +4,7 @@ from django.db import models
 class Persona(models.Model):
     
     #DEBERIA SER LA LLAVE PRINCIPAL c
-    cedula = models.CharField(max_length = 11, primary_key = True)
+    cedula = models.CharField(max_length = 11)
     nombre = models.CharField(max_length = 20)
     apellidos = models.CharField(max_length = 20)
     correo = models.CharField(max_length = 25)
@@ -18,6 +18,6 @@ class Usuario(models.Model):
     password = models.CharField(max_length = 20)
     estado = models.CharField(max_length = 15)
     tipo_usuario = models.CharField(max_length = 15)
-    id_persona = models.OneToOneField(Persona, on_delete= models.CASCADE)
+    persona=models.ForeignKey(Persona, on_delete=models.CASCADE)
     def __str__(self):
         return self.username

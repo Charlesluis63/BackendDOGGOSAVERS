@@ -24,7 +24,7 @@ def api_root(request, format=None):
 # Create your views here.
 
 class MascotaAdopcion_List(generics.ListCreateAPIView):
-    queryset = Mascota_En_Adopcion.objects.all()
+    queryset = MascotaEnAdopcion.objects.all()
     serializer_class = Mascota_adopcion_serialize
 
     def get_queryset(self):
@@ -32,7 +32,7 @@ class MascotaAdopcion_List(generics.ListCreateAPIView):
         Optionally restricts the returned purchases to a given user,
         by filtering against a `username` query parameter in the URL.
         """
-        queryset = Mascota_En_Adopcion.objects.all()
+        queryset = MascotaEnAdopcion.objects.all()
         pj = self.request.query_params.get('puntaje_juego', None)
         if pj is not None:
             queryset = queryset.filter(puntaje_juego=pj)
@@ -41,7 +41,7 @@ class MascotaAdopcion_List(generics.ListCreateAPIView):
 
 
 class MascotaAdopcion_Detail(generics.RetrieveUpdateDestroyAPIView):
-    queryset =Mascota_En_Adopcion.objects.all()
+    queryset =MascotaEnAdopcion.objects.all()
     serializer_class = Mascota_adopcion_serialize
 
 class Mascotas(generics.ListCreateAPIView):
@@ -57,10 +57,37 @@ class Mascotas(generics.ListCreateAPIView):
         tp = self.request.query_params.get('tipo_mascota', None)
         raza = self.request.query_params.get('raza', None)
         edad = self.request.query_params.get('edad', None)
+        tipo = self.request.query_params.get('tipo', None)
+
+
+        if tipo is not None:
+            temp3=[]
+            if tipo=="ADOP":
+                temp=MascotaEnAdopcion.objects.all()
+                temp2=Mascota.objects.all()
+                for ob in temp:
+                    for ob2 in temp2:
+                        num=ob.id_mascota.id
+                        print(ob.id_mascota.id)
+                        if (num==ob2.id):
+                            temp3.append(ob2.id)
+                queryset=temp2.filter(id__in=temp3)
+            if tipo == "P/E":
+                temp = MascotaPerdidaEncontrada.objects.all()
+                temp2 = Mascota.objects.all()
+                for ob in temp:
+                    for ob2 in temp2:
+                        num = ob.id_mascota.id
+                        print(ob.id_mascota.id)
+                        if (num == ob2.id):
+                            temp3.append(ob2.id)
+                queryset = temp2.filter(id__in=temp3)
+
         if tp is not None:
             queryset = queryset.filter(tipo_mascota=tp)
 
         if edad is not None:
+
             queryset = queryset.filter(edad_aproximada=edad)
 
         if raza is not None:
@@ -81,7 +108,7 @@ class RazaDetail(generics.RetrieveAPIView):
     serializer_class = Razaserialize
 
 class Mascotas_Perdida_Encontrada(generics.ListCreateAPIView):
-    queryset = Mascota_Perdida_Encontrada.objects.all()
+    queryset = MascotaPerdidaEncontrada.objects.all()
     serializer_class = Mascota_Perdida_Encontrada_serialize
 
     def get_queryset(self):
@@ -89,7 +116,7 @@ class Mascotas_Perdida_Encontrada(generics.ListCreateAPIView):
         Optionally restricts the returned purchases to a given user,
         by filtering against a `username` query parameter in the URL.
         """
-        queryset = Mascota_Perdida_Encontrada.objects.all()
+        queryset = MascotaPerdidaEncontrada.objects.all()
         em  = self.request.query_params.get('estado_mascota', None)
         if em is not None:
             queryset = queryset.filter(estado_mascota=em)
@@ -98,13 +125,13 @@ class Mascotas_Perdida_Encontrada(generics.ListCreateAPIView):
 
 
 class Mascotas_Perdida_Encontrada_Detail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Mascota_Perdida_Encontrada.objects.all()
+    queryset = MascotaPerdidaEncontrada.objects.all()
     serializer_class = Mascota_Perdida_Encontrada_serialize
 
 class Mascotas_Adoptadas(generics.ListCreateAPIView):
-    queryset = Mascota_Adoptada.objects.all()
+    queryset = MascotaAdoptada.objects.all()
     serializer_class = Mascota_Adoptada_serialize
 
 class Mascotas_Adoptadas_Detail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Mascota_Adoptada.objects.all()
+    queryset = MascotaAdoptada.objects.all()
     serializer_class = Mascota_Adoptada_serialize

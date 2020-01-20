@@ -30,19 +30,19 @@ class Mascota (models.Model):
     def __str__(self):
         return self.nombre
 
-class Mascota_En_Adopcion(models.Model):
+class MascotaEnAdopcion(models.Model):
     id_mascota = models.ForeignKey(Mascota, on_delete=models.CASCADE)
     id_user = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     puntaje_juego = models.DecimalField(max_digits= 4, decimal_places=2)
 
-class  Mascota_Adoptada(models.Model):
+class  MascotaAdoptada(models.Model):
     id_mascota = models.ForeignKey(Mascota, on_delete=models.CASCADE)
     id_user = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     fecha = models.DateField()
     hora = models.TimeField(auto_now=False, auto_now_add=False)
     detalle = models.CharField(max_length= 200)
 
-class Mascota_Perdida_Encontrada(models.Model):
+class MascotaPerdidaEncontrada(models.Model):
     PERDIDO = 'PE'
     ENCONTRADO =  'EN'
     TIPO_MASCOTA_ELECCION = [(PERDIDO,'perdido'),(ENCONTRADO,'encontrado')]

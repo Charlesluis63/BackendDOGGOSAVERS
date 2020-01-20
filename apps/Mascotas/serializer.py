@@ -8,12 +8,12 @@ class Mascotaserialize(serializers.HyperlinkedModelSerializer):
     class Meta:
         model =  Mascota
         #No veo necesario agregar contraseña
-        fields = ('tipo_mascota','nombre','sexo','altura','peso','edad_aproximada','imagen','detalles','razas')
+        fields = ('id','tipo_mascota','nombre','sexo','altura','peso','edad_aproximada','imagen','detalles','razas')
 
 
 class Mascota_adopcion_serialize (ModelSerializer):
     class Meta:
-        model= Mascota_En_Adopcion
+        model= MascotaEnAdopcion
         fields = ('id','id_mascota','id_user','puntaje_juego')
 
 class Razaserialize(serializers.HyperlinkedModelSerializer):
@@ -24,12 +24,12 @@ class Razaserialize(serializers.HyperlinkedModelSerializer):
 
 class Mascota_Perdida_Encontrada_serialize(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model =  Mascota_Perdida_Encontrada
+        model =  MascotaPerdidaEncontrada
         #No veo necesario agregar contraseña
-        fields = ('id_mascota','id_user', 'estado_mascota','sector_encuentro_perdida','detalle')
+        fields = ('id','id_mascota','id_user', 'estado_mascota','sector_encuentro_perdida','detalle')
 
 class Mascota_Adoptada_serialize(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model =  Mascota_Adoptada
+        model =  MascotaAdoptada
         #No veo necesario agregar contraseña
-        fields = ('id_mascota','id_user', 'fecha','hora','detalle')
+        fields = ('id','id_mascota','id_user', 'fecha','hora','detalle')
