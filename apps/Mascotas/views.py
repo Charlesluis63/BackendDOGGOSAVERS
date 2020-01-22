@@ -59,6 +59,11 @@ class Mascotas(generics.ListCreateAPIView):
         edad = self.request.query_params.get('edad', None)
         tipo = self.request.query_params.get('tipo', None)
         estado = self.request.query_params.get('estado', None)
+        nombre = self.request.query_params.get('nombre', None)
+        sexo = self.request.query_params.get('sexo', None)
+        altura = self.request.query_params.get('altura', None)
+        peso = self.request.query_params.get('peso', None)
+        detalles = self.request.query_params.get('detalles', None)
 
         if tipo is not None:
             temp3=[]
@@ -72,7 +77,7 @@ class Mascotas(generics.ListCreateAPIView):
                         if (num==ob2.id):
                             temp3.append(ob2.id)
                 queryset=temp2.filter(id__in=temp3)
-            if tipo == "P/E":
+            elif tipo == "P/E":
                 temp = MascotaPerdidaEncontrada.objects.all()
                 temp2 = Mascota.objects.all()
                 for ob in temp:
@@ -82,6 +87,9 @@ class Mascotas(generics.ListCreateAPIView):
                         if (num == ob2.id and (estado==ob.estado_mascota)):
                             temp3.append(ob2.id)
                 queryset = temp2.filter(id__in=temp3)
+            elif tipo == "ID":
+                print("entro a id")
+                queryset = queryset.filter(tipo_mascota=tp,nombre=nombre,sexo=sexo,altura=altura,peso=peso,edad_aproximada=edad,detalles=detalles)
 
         if tp is not None:
             if tp!="N":
