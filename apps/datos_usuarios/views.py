@@ -35,7 +35,7 @@ class Usuario_List(generics.ListCreateAPIView):
         tipo = self.request.query_params.get('tipo', None)
         user = self.request.query_params.get('user', None)
         passw = self.request.query_params.get('pass', None)
-
+        id = self.request.query_params.get('id', None)
         if mascota is not None:
             if tipo == "ADOP":
                 temp3=[]
@@ -61,6 +61,9 @@ class Usuario_List(generics.ListCreateAPIView):
                         if (num==ob2.id) and (int(mascota)==ob.id_mascota.id):
                             temp3.append(ob2.id)
                 queryset=temp2.filter(id__in=temp3)
+
+        if tipo=="ADOPTADA":
+            queryset = queryset.exclude(id=id);
 
         if (mascota is None) and (tipo =="LOG") :
             print("ENTRO A LOG")
