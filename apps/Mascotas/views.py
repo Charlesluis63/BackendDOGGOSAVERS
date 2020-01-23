@@ -44,6 +44,8 @@ class MascotaAdopcion_Detail(generics.RetrieveUpdateDestroyAPIView):
     queryset =MascotaEnAdopcion.objects.all()
     serializer_class = Mascota_adopcion_serialize
 
+
+
 class Mascotas(generics.ListCreateAPIView):
     queryset = Mascota.objects.all().order_by('nombre')
     serializer_class = Mascotaserialize
@@ -68,15 +70,21 @@ class Mascotas(generics.ListCreateAPIView):
 
         if tipo is not None:
             temp3=[]
+            temp5=[]
             if tipo=="ADOP":
                 temp=MascotaEnAdopcion.objects.all()
                 temp2=Mascota.objects.all()
+                temp4 = MascotaAdoptada.objects.all()
                 for ob in temp:
                     for ob2 in temp2:
                         num=ob.id_mascota.id
                         print(ob.id_mascota.id)
                         if (num==ob2.id):
                             temp3.append(ob2.id)
+                    for ob3 in temp4:
+                        num = ob3.id_mascota.id
+                        if(num in temp3):
+                            temp3.remove(num)
                 queryset=temp2.filter(id__in=temp3)
             elif tipo == "P/E":
                 temp = MascotaPerdidaEncontrada.objects.all()
@@ -156,6 +164,20 @@ class Mascotas_Perdida_Encontrada_Detail(generics.RetrieveUpdateDestroyAPIView):
 class Mascotas_Adoptadas(generics.ListCreateAPIView):
     queryset = MascotaAdoptada.objects.all()
     serializer_class = Mascota_Adoptada_serialize
+
+    def get_queryset(self):
+        """
+        Optionally restricts the returned purchases to a given user,
+        by filtering against a `username` query parameter in the URL.
+        """
+
+        id = self.request.query_params.get('idMascota', None)
+
+        queryset =MascotaAdoptada.objects.all()
+        if id is not None:
+            queryset = queryset.filter(id_mascota=id)
+
+        return queryset
 
 class Mascotas_Adoptadas_Detail(generics.RetrieveUpdateDestroyAPIView):
     queryset = MascotaAdoptada.objects.all()

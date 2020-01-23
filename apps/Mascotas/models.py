@@ -39,7 +39,6 @@ class  MascotaAdoptada(models.Model):
     id_mascota = models.ForeignKey(Mascota, on_delete=models.CASCADE)
     id_user = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     fecha = models.DateField()
-    hora = models.TimeField(auto_now=False, auto_now_add=False)
     detalle = models.CharField(max_length= 200)
 
 class MascotaPerdidaEncontrada(models.Model):

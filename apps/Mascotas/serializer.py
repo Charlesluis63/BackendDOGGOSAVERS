@@ -32,4 +32,4 @@ class Mascota_Adoptada_serialize(ModelSerializer):
     class Meta:
         model =  MascotaAdoptada
         #No veo necesario agregar contraseña
-        fields = ('id','id_mascota','id_user', 'fecha','hora','detalle')
+        fields = ('id','id_mascota','id_user', 'fecha','detalle')
