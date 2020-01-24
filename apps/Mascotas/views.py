@@ -134,7 +134,17 @@ class Mascotas(generics.ListCreateAPIView):
 
         if raza is not None:
             if raza != "N":
-              queryset = queryset.filter(razas=raza)
+              temp3=[]
+              for ob in queryset:
+                  print("raza")
+                  print(raza)
+
+                  for r in ob.razas.all():
+                    print("todas")
+                    print(r.id)
+                    if int(raza) ==r.id:
+                          temp3.append(ob.id)
+              queryset = queryset.filter(id__in=temp3)
 
         return queryset
 
@@ -161,8 +171,19 @@ class Mascotas_Perdida_Encontrada(generics.ListCreateAPIView):
         """
         queryset = MascotaPerdidaEncontrada.objects.all()
         em  = self.request.query_params.get('estado_mascota', None)
+        tipo = self.request.query_params.get('tipo', None)
+        id = self.request.query_params.get('idMascota', None)
         if em is not None:
             queryset = queryset.filter(estado_mascota=em)
+
+        if tipo is not None:
+            if tipo=="IDM":
+                temp3 = []
+                for ob in queryset:
+                    idmas= ob.id_mascota.id
+                    if idmas==int(id) :
+                            temp3.append(ob.id)
+                queryset = queryset.filter(id__in=temp3)
 
         return queryset
 
