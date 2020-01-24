@@ -112,6 +112,19 @@ class Mascotas(generics.ListCreateAPIView):
                             print("se metio en la tabla")
                             temp3.append(ob2.id)
                 queryset = temp2.filter(id__in=temp3)
+            elif tipo == "MASREP":
+                print("entro en reportes us")
+                temp = MascotaPerdidaEncontrada.objects.all().filter(id_user=id)
+                temp2 = Mascota.objects.all()
+                for ob in temp:
+                    print(ob.id_mascota.id)
+                    for ob2 in temp2:
+                        num = ob.id_mascota.id
+                        print(ob.id_mascota.id)
+                        if (num == ob2.id):
+                            print("se metio en la tabla")
+                            temp3.append(ob2.id)
+                queryset = temp2.filter(id__in=temp3)
 
 
         if tp is not None:
@@ -184,6 +197,7 @@ class Mascotas_Perdida_Encontrada(generics.ListCreateAPIView):
                     if idmas==int(id) :
                             temp3.append(ob.id)
                 queryset = queryset.filter(id__in=temp3)
+
 
         return queryset
 

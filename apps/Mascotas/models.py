@@ -44,7 +44,8 @@ class  MascotaAdoptada(models.Model):
 class MascotaPerdidaEncontrada(models.Model):
     PERDIDO = 'PE'
     ENCONTRADO =  'EN'
-    TIPO_MASCOTA_ELECCION = [(PERDIDO,'perdido'),(ENCONTRADO,'encontrado')]
+    COMPLETO = 'CO'
+    TIPO_MASCOTA_ELECCION = [(PERDIDO,'perdido'),(ENCONTRADO,'encontrado'),(COMPLETO,'completo')]
     id_mascota = models.ForeignKey(Mascota, on_delete=models.CASCADE)
     id_user = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     estado_mascota = models.CharField(max_length = 2 , choices = TIPO_MASCOTA_ELECCION)
