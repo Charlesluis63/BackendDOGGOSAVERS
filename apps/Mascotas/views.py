@@ -139,11 +139,12 @@ class Mascotas(generics.ListCreateAPIView):
                     for ob in queryset:
                         if ob.edad_aproximada<=5:
                             temp3.append(ob.id)
+                    queryset = queryset.filter(id__in=temp3)
                 elif(edad=="ADULTO"):
                     for ob in queryset:
                         if ob.edad_aproximada>5:
                             temp3.append(ob.id)
-                queryset = temp2.filter(id__in=temp3)
+                    queryset = queryset.filter(id__in=temp3)
 
         if raza is not None:
             if raza != "N":
